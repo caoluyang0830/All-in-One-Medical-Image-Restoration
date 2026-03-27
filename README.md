@@ -107,8 +107,5 @@ This repo includes:
 
 Use `--checkpoint_id AMIFound_large` for evaluation.
 
-## Notes
 
-- `test_all_patch.py` includes tile-based fallback for very large images.
-- Some helper comments/logs in source files are in Chinese; functionality is unchanged.
 
