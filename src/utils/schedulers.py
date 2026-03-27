@@ -1,14 +1,14 @@
-import math
-from collections import Counter
-from torch.optim.lr_scheduler import _LRScheduler
-import torch
-import warnings
-from typing import List
+import math 
+from collections import Counter 
+from torch .optim .lr_scheduler import _LRScheduler 
+import torch 
+import warnings 
+from typing import List 
 
-from torch import nn
-from torch.optim import Adam, Optimizer
+from torch import nn 
+from torch .optim import Adam ,Optimizer 
 
-class MultiStepRestartLR(_LRScheduler):
+class MultiStepRestartLR (_LRScheduler ):
     """ MultiStep with restarts learning rate scheme.
 
     Args:
@@ -21,36 +21,36 @@ class MultiStepRestartLR(_LRScheduler):
         last_epoch (int): Used in _LRScheduler. Default: -1.
     """
 
-    def __init__(self,
-                 optimizer,
-                 milestones,
-                 gamma=0.1,
-                 restarts=(0, ),
-                 restart_weights=(1, ),
-                 last_epoch=-1):
-        self.milestones = Counter(milestones)
-        self.gamma = gamma
-        self.restarts = restarts
-        self.restart_weights = restart_weights
-        assert len(self.restarts) == len(
-            self.restart_weights), 'restarts and their weights do not match.'
-        super(MultiStepRestartLR, self).__init__(optimizer, last_epoch)
+    def __init__ (self ,
+    optimizer ,
+    milestones ,
+    gamma =0.1 ,
+    restarts =(0 ,),
+    restart_weights =(1 ,),
+    last_epoch =-1 ):
+        self .milestones =Counter (milestones )
+        self .gamma =gamma 
+        self .restarts =restarts 
+        self .restart_weights =restart_weights 
+        assert len (self .restarts )==len (
+        self .restart_weights ),'restarts and their weights do not match.'
+        super (MultiStepRestartLR ,self ).__init__ (optimizer ,last_epoch )
 
-    def get_lr(self):
-        if self.last_epoch in self.restarts:
-            weight = self.restart_weights[self.restarts.index(self.last_epoch)]
+    def get_lr (self ):
+        if self .last_epoch in self .restarts :
+            weight =self .restart_weights [self .restarts .index (self .last_epoch )]
             return [
-                group['initial_lr'] * weight
-                for group in self.optimizer.param_groups
+            group ['initial_lr']*weight 
+            for group in self .optimizer .param_groups 
             ]
-        if self.last_epoch not in self.milestones:
-            return [group['lr'] for group in self.optimizer.param_groups]
+        if self .last_epoch not in self .milestones :
+            return [group ['lr']for group in self .optimizer .param_groups ]
         return [
-            group['lr'] * self.gamma**self.milestones[self.last_epoch]
-            for group in self.optimizer.param_groups
+        group ['lr']*self .gamma **self .milestones [self .last_epoch ]
+        for group in self .optimizer .param_groups 
         ]
 
-class LinearLR(_LRScheduler):
+class LinearLR (_LRScheduler ):
     """
 
     Args:
@@ -60,20 +60,20 @@ class LinearLR(_LRScheduler):
         last_epoch (int): Used in _LRScheduler. Default: -1.
     """
 
-    def __init__(self,
-                 optimizer,
-                 total_iter,
-                 last_epoch=-1):
-        self.total_iter = total_iter
-        super(LinearLR, self).__init__(optimizer, last_epoch)
+    def __init__ (self ,
+    optimizer ,
+    total_iter ,
+    last_epoch =-1 ):
+        self .total_iter =total_iter 
+        super (LinearLR ,self ).__init__ (optimizer ,last_epoch )
 
-    def get_lr(self):
-        process = self.last_epoch / self.total_iter
-        weight = (1 - process)
-        # print('get lr ', [weight * group['initial_lr'] for group in self.optimizer.param_groups])
-        return [weight * group['initial_lr'] for group in self.optimizer.param_groups]
+    def get_lr (self ):
+        process =self .last_epoch /self .total_iter 
+        weight =(1 -process )
 
-class VibrateLR(_LRScheduler):
+        return [weight *group ['initial_lr']for group in self .optimizer .param_groups ]
+
+class VibrateLR (_LRScheduler ):
     """
 
     Args:
@@ -83,40 +83,40 @@ class VibrateLR(_LRScheduler):
         last_epoch (int): Used in _LRScheduler. Default: -1.
     """
 
-    def __init__(self,
-                 optimizer,
-                 total_iter,
-                 last_epoch=-1):
-        self.total_iter = total_iter
-        super(VibrateLR, self).__init__(optimizer, last_epoch)
+    def __init__ (self ,
+    optimizer ,
+    total_iter ,
+    last_epoch =-1 ):
+        self .total_iter =total_iter 
+        super (VibrateLR ,self ).__init__ (optimizer ,last_epoch )
 
-    def get_lr(self):
-        process = self.last_epoch / self.total_iter
+    def get_lr (self ):
+        process =self .last_epoch /self .total_iter 
 
-        f = 0.1
-        if process < 3 / 8:
-            f = 1 - process * 8 / 3
-        elif process < 5 / 8:
-            f = 0.2
+        f =0.1 
+        if process <3 /8 :
+            f =1 -process *8 /3 
+        elif process <5 /8 :
+            f =0.2 
 
-        T = self.total_iter // 80
-        Th = T // 2
+        T =self .total_iter //80 
+        Th =T //2 
 
-        t = self.last_epoch % T
+        t =self .last_epoch %T 
 
-        f2 = t / Th
-        if t >= Th:
-            f2 = 2 - f2
+        f2 =t /Th 
+        if t >=Th :
+            f2 =2 -f2 
 
-        weight = f * f2
+        weight =f *f2 
 
-        if self.last_epoch < Th:
-            weight = max(0.1, weight)
+        if self .last_epoch <Th :
+            weight =max (0.1 ,weight )
 
-        # print('f {}, T {}, Th {}, t {}, f2 {}'.format(f, T, Th, t, f2))
-        return [weight * group['initial_lr'] for group in self.optimizer.param_groups]
 
-def get_position_from_periods(iteration, cumulative_period):
+        return [weight *group ['initial_lr']for group in self .optimizer .param_groups ]
+
+def get_position_from_periods (iteration ,cumulative_period ):
     """Get the position from a period list.
 
     It will return the index of the right-closest number in the period list.
@@ -132,12 +132,12 @@ def get_position_from_periods(iteration, cumulative_period):
     Returns:
         int: The position of the right-closest number in the period list.
     """
-    for i, period in enumerate(cumulative_period):
-        if iteration <= period:
-            return i
+    for i ,period in enumerate (cumulative_period ):
+        if iteration <=period :
+            return i 
 
 
-class CosineAnnealingRestartLR(_LRScheduler):
+class CosineAnnealingRestartLR (_LRScheduler ):
     """ Cosine annealing with restarts learning rate scheme.
 
     An example of config:
@@ -157,37 +157,37 @@ class CosineAnnealingRestartLR(_LRScheduler):
         last_epoch (int): Used in _LRScheduler. Default: -1.
     """
 
-    def __init__(self,
-                 optimizer,
-                 periods,
-                 restart_weights=(1, ),
-                 eta_min=0,
-                 last_epoch=-1):
-        self.periods = periods
-        self.restart_weights = restart_weights
-        self.eta_min = eta_min
-        assert (len(self.periods) == len(self.restart_weights)
-                ), 'periods and restart_weights should have the same length.'
-        self.cumulative_period = [
-            sum(self.periods[0:i + 1]) for i in range(0, len(self.periods))
+    def __init__ (self ,
+    optimizer ,
+    periods ,
+    restart_weights =(1 ,),
+    eta_min =0 ,
+    last_epoch =-1 ):
+        self .periods =periods 
+        self .restart_weights =restart_weights 
+        self .eta_min =eta_min 
+        assert (len (self .periods )==len (self .restart_weights )
+        ),'periods and restart_weights should have the same length.'
+        self .cumulative_period =[
+        sum (self .periods [0 :i +1 ])for i in range (0 ,len (self .periods ))
         ]
-        super(CosineAnnealingRestartLR, self).__init__(optimizer, last_epoch)
+        super (CosineAnnealingRestartLR ,self ).__init__ (optimizer ,last_epoch )
 
-    def get_lr(self):
-        idx = get_position_from_periods(self.last_epoch,
-                                        self.cumulative_period)
-        current_weight = self.restart_weights[idx]
-        nearest_restart = 0 if idx == 0 else self.cumulative_period[idx - 1]
-        current_period = self.periods[idx]
+    def get_lr (self ):
+        idx =get_position_from_periods (self .last_epoch ,
+        self .cumulative_period )
+        current_weight =self .restart_weights [idx ]
+        nearest_restart =0 if idx ==0 else self .cumulative_period [idx -1 ]
+        current_period =self .periods [idx ]
 
         return [
-            self.eta_min + current_weight * 0.5 * (base_lr - self.eta_min) *
-            (1 + math.cos(math.pi * (
-                (self.last_epoch - nearest_restart) / current_period)))
-            for base_lr in self.base_lrs
+        self .eta_min +current_weight *0.5 *(base_lr -self .eta_min )*
+        (1 +math .cos (math .pi *(
+        (self .last_epoch -nearest_restart )/current_period )))
+        for base_lr in self .base_lrs 
         ]
 
-class CosineAnnealingRestartCyclicLR(_LRScheduler):
+class CosineAnnealingRestartCyclicLR (_LRScheduler ):
     """ Cosine annealing with restarts learning rate scheme.
     An example of config:
     periods = [10, 10, 10, 10]
@@ -204,39 +204,39 @@ class CosineAnnealingRestartCyclicLR(_LRScheduler):
         last_epoch (int): Used in _LRScheduler. Default: -1.
     """
 
-    def __init__(self,
-                 optimizer,
-                 periods,
-                 restart_weights=(1, ),
-                 eta_mins=(0, ),
-                 last_epoch=-1):
-        self.periods = periods
-        self.restart_weights = restart_weights
-        self.eta_mins = eta_mins
-        assert (len(self.periods) == len(self.restart_weights)
-                ), 'periods and restart_weights should have the same length.'
-        self.cumulative_period = [
-            sum(self.periods[0:i + 1]) for i in range(0, len(self.periods))
+    def __init__ (self ,
+    optimizer ,
+    periods ,
+    restart_weights =(1 ,),
+    eta_mins =(0 ,),
+    last_epoch =-1 ):
+        self .periods =periods 
+        self .restart_weights =restart_weights 
+        self .eta_mins =eta_mins 
+        assert (len (self .periods )==len (self .restart_weights )
+        ),'periods and restart_weights should have the same length.'
+        self .cumulative_period =[
+        sum (self .periods [0 :i +1 ])for i in range (0 ,len (self .periods ))
         ]
-        super(CosineAnnealingRestartCyclicLR, self).__init__(optimizer, last_epoch)
-        
-    def get_lr(self):
-        idx = get_position_from_periods(self.last_epoch,
-                                        self.cumulative_period)
-        current_weight = self.restart_weights[idx]
-        nearest_restart = 0 if idx == 0 else self.cumulative_period[idx - 1]
-        current_period = self.periods[idx]
-        eta_min = self.eta_mins[idx]
+        super (CosineAnnealingRestartCyclicLR ,self ).__init__ (optimizer ,last_epoch )
+
+    def get_lr (self ):
+        idx =get_position_from_periods (self .last_epoch ,
+        self .cumulative_period )
+        current_weight =self .restart_weights [idx ]
+        nearest_restart =0 if idx ==0 else self .cumulative_period [idx -1 ]
+        current_period =self .periods [idx ]
+        eta_min =self .eta_mins [idx ]
 
         return [
-            eta_min + current_weight * 0.5 * (base_lr - eta_min) *
-            (1 + math.cos(math.pi * (
-                (self.last_epoch - nearest_restart) / current_period)))
-            for base_lr in self.base_lrs
+        eta_min +current_weight *0.5 *(base_lr -eta_min )*
+        (1 +math .cos (math .pi *(
+        (self .last_epoch -nearest_restart )/current_period )))
+        for base_lr in self .base_lrs 
         ]
-    
 
-class LinearWarmupCosineAnnealingLR(_LRScheduler):
+
+class LinearWarmupCosineAnnealingLR (_LRScheduler ):
     """Sets the learning rate of each parameter group to follow a linear warmup schedule between warmup_start_lr
     and base_lr followed by a cosine annealing schedule between base_lr and eta_min.
     .. warning::
@@ -267,15 +267,15 @@ class LinearWarmupCosineAnnealingLR(_LRScheduler):
         ...     # validate(...)
     """
 
-    def __init__(
-        self,
-        optimizer: Optimizer,
-        warmup_epochs: int,
-        max_epochs: int,
-        warmup_start_lr: float = 0.0,
-        eta_min: float = 0.0,
-        last_epoch: int = -1,
-    ) -> None:
+    def __init__ (
+    self ,
+    optimizer :Optimizer ,
+    warmup_epochs :int ,
+    max_epochs :int ,
+    warmup_start_lr :float =0.0 ,
+    eta_min :float =0.0 ,
+    last_epoch :int =-1 ,
+    )->None :
         """
         Args:
             optimizer (Optimizer): Wrapped optimizer.
@@ -285,95 +285,95 @@ class LinearWarmupCosineAnnealingLR(_LRScheduler):
             eta_min (float): Minimum learning rate. Default: 0.
             last_epoch (int): The index of last epoch. Default: -1.
         """
-        self.warmup_epochs = warmup_epochs
-        self.max_epochs = max_epochs
-        self.warmup_start_lr = warmup_start_lr
-        self.eta_min = eta_min
+        self .warmup_epochs =warmup_epochs 
+        self .max_epochs =max_epochs 
+        self .warmup_start_lr =warmup_start_lr 
+        self .eta_min =eta_min 
 
-        super().__init__(optimizer, last_epoch)
+        super ().__init__ (optimizer ,last_epoch )
 
-    def get_lr(self) -> List[float]:
+    def get_lr (self )->List [float ]:
         """Compute learning rate using chainable form of the scheduler."""
-        if not self._get_lr_called_within_step:
-            warnings.warn(
-                "To get the last learning rate computed by the scheduler, " "please use `get_last_lr()`.",
-                UserWarning,
+        if not self ._get_lr_called_within_step :
+            warnings .warn (
+            "To get the last learning rate computed by the scheduler, " "please use `get_last_lr()`.",
+            UserWarning ,
             )
 
-        if self.last_epoch == 0:
-            return [self.warmup_start_lr] * len(self.base_lrs)
-        if self.last_epoch < self.warmup_epochs:
+        if self .last_epoch ==0 :
+            return [self .warmup_start_lr ]*len (self .base_lrs )
+        if self .last_epoch <self .warmup_epochs :
             return [
-                group["lr"] + (base_lr - self.warmup_start_lr) / (self.warmup_epochs - 1)
-                for base_lr, group in zip(self.base_lrs, self.optimizer.param_groups)
+            group ["lr"]+(base_lr -self .warmup_start_lr )/(self .warmup_epochs -1 )
+            for base_lr ,group in zip (self .base_lrs ,self .optimizer .param_groups )
             ]
-        if self.last_epoch == self.warmup_epochs:
-            return self.base_lrs
-        if (self.last_epoch - 1 - self.max_epochs) % (2 * (self.max_epochs - self.warmup_epochs)) == 0:
+        if self .last_epoch ==self .warmup_epochs :
+            return self .base_lrs 
+        if (self .last_epoch -1 -self .max_epochs )%(2 *(self .max_epochs -self .warmup_epochs ))==0 :
             return [
-                group["lr"]
-                + (base_lr - self.eta_min) * (1 - math.cos(math.pi / (self.max_epochs - self.warmup_epochs))) / 2
-                for base_lr, group in zip(self.base_lrs, self.optimizer.param_groups)
+            group ["lr"]
+            +(base_lr -self .eta_min )*(1 -math .cos (math .pi /(self .max_epochs -self .warmup_epochs )))/2 
+            for base_lr ,group in zip (self .base_lrs ,self .optimizer .param_groups )
             ]
 
         return [
-            (1 + math.cos(math.pi * (self.last_epoch - self.warmup_epochs) / (self.max_epochs - self.warmup_epochs)))
-            / (
-                1
-                + math.cos(
-                    math.pi * (self.last_epoch - self.warmup_epochs - 1) / (self.max_epochs - self.warmup_epochs)
-                )
-            )
-            * (group["lr"] - self.eta_min)
-            + self.eta_min
-            for group in self.optimizer.param_groups
+        (1 +math .cos (math .pi *(self .last_epoch -self .warmup_epochs )/(self .max_epochs -self .warmup_epochs )))
+        /(
+        1 
+        +math .cos (
+        math .pi *(self .last_epoch -self .warmup_epochs -1 )/(self .max_epochs -self .warmup_epochs )
+        )
+        )
+        *(group ["lr"]-self .eta_min )
+        +self .eta_min 
+        for group in self .optimizer .param_groups 
         ]
 
-    def _get_closed_form_lr(self) -> List[float]:
+    def _get_closed_form_lr (self )->List [float ]:
         """Called when epoch is passed as a param to the `step` function of the scheduler."""
-        if self.last_epoch < self.warmup_epochs:
+        if self .last_epoch <self .warmup_epochs :
             return [
-                self.warmup_start_lr + self.last_epoch * (base_lr - self.warmup_start_lr) / (self.warmup_epochs - 1)
-                for base_lr in self.base_lrs
+            self .warmup_start_lr +self .last_epoch *(base_lr -self .warmup_start_lr )/(self .warmup_epochs -1 )
+            for base_lr in self .base_lrs 
             ]
 
         return [
-            self.eta_min
-            + 0.5
-            * (base_lr - self.eta_min)
-            * (1 + math.cos(math.pi * (self.last_epoch - self.warmup_epochs) / (self.max_epochs - self.warmup_epochs)))
-            for base_lr in self.base_lrs
+        self .eta_min 
+        +0.5 
+        *(base_lr -self .eta_min )
+        *(1 +math .cos (math .pi *(self .last_epoch -self .warmup_epochs )/(self .max_epochs -self .warmup_epochs )))
+        for base_lr in self .base_lrs 
         ]
 
 
-# warmup + decay as a function
-def linear_warmup_decay(warmup_steps, total_steps, cosine=True, linear=False):
+
+def linear_warmup_decay (warmup_steps ,total_steps ,cosine =True ,linear =False ):
     """Linear warmup for warmup_steps, optionally with cosine annealing or linear decay to 0 at total_steps."""
-    assert not (linear and cosine)
+    assert not (linear and cosine )
 
-    def fn(step):
-        if step < warmup_steps:
-            return float(step) / float(max(1, warmup_steps))
+    def fn (step ):
+        if step <warmup_steps :
+            return float (step )/float (max (1 ,warmup_steps ))
 
-        if not (cosine or linear):
-            # no decay
-            return 1.0
+        if not (cosine or linear ):
 
-        progress = float(step - warmup_steps) / float(max(1, total_steps - warmup_steps))
-        if cosine:
-            # cosine decay
-            return 0.5 * (1.0 + math.cos(math.pi * progress))
+            return 1.0 
 
-        # linear decay
-        return 1.0 - progress
+        progress =float (step -warmup_steps )/float (max (1 ,total_steps -warmup_steps ))
+        if cosine :
 
-    return fn
+            return 0.5 *(1.0 +math .cos (math .pi *progress ))
 
 
+        return 1.0 -progress 
 
-class CosineAnnealingWithWarmupAndDecay(_LRScheduler):
-    def __init__(self, optimizer, T_0, T_mult=2, eta_min=0.001, eta_max=0.1, 
-                 warmup_epochs=3, decay_factor=0.7, last_epoch=-1):
+    return fn 
+
+
+
+class CosineAnnealingWithWarmupAndDecay (_LRScheduler ):
+    def __init__ (self ,optimizer ,T_0 ,T_mult =2 ,eta_min =0.001 ,eta_max =0.1 ,
+    warmup_epochs =3 ,decay_factor =0.7 ,last_epoch =-1 ):
         """
         Custom learning rate scheduler that combines linear warm-up, cosine annealing with restarts, 
         and decaying restart weights.
@@ -388,43 +388,43 @@ class CosineAnnealingWithWarmupAndDecay(_LRScheduler):
             decay_factor (float): Factor by which to decay the max learning rate after each restart.
             last_epoch (int): The index of the last epoch. Default: -1.
         """
-        self.T_0 = T_0
-        self.T_mult = T_mult
-        self.eta_min = eta_min
-        self.eta_max = eta_max
-        self.warmup_epochs = warmup_epochs
-        self.decay_factor = decay_factor
-        self.current_T_i = T_0
-        self.current_eta_max = eta_max  # Initial max learning rate
-        self.restart_counter = 0
-        super(CosineAnnealingWithWarmupAndDecay, self).__init__(optimizer, last_epoch)
-    
-    def get_lr(self):
-        epoch_in_cycle = self.last_epoch % self.current_T_i
-        if self.last_epoch < self.warmup_epochs:
-            # During warm-up phase, linearly increase learning rate
-            lr = self.eta_min + (self.current_eta_max - self.eta_min) * (self.last_epoch / self.warmup_epochs)
-        else:
-            # Cosine annealing after warm-up
-            if epoch_in_cycle < self.warmup_epochs:
-                lr = self.eta_min + (self.current_eta_max - self.eta_min) * (epoch_in_cycle / self.warmup_epochs)
-            else:
-                lr = self.eta_min + 0.5 * (self.current_eta_max - self.eta_min) * (1 + 
-                       torch.cos(torch.tensor(epoch_in_cycle - self.warmup_epochs) * torch.pi / 
-                                 (self.current_T_i - self.warmup_epochs)))
-        return [lr for _ in self.optimizer.param_groups]
+        self .T_0 =T_0 
+        self .T_mult =T_mult 
+        self .eta_min =eta_min 
+        self .eta_max =eta_max 
+        self .warmup_epochs =warmup_epochs 
+        self .decay_factor =decay_factor 
+        self .current_T_i =T_0 
+        self .current_eta_max =eta_max 
+        self .restart_counter =0 
+        super (CosineAnnealingWithWarmupAndDecay ,self ).__init__ (optimizer ,last_epoch )
 
-    def step(self, epoch=None):
-        if epoch is None:
-            epoch = self.last_epoch + 1
-        self.last_epoch = epoch
-        
-        # Handle restart logic
-        if epoch % self.current_T_i == 0 and epoch != 0:
-            self.restart_counter += 1
-            self.current_T_i = self.T_0 * (self.T_mult ** self.restart_counter)
-            self.current_eta_max *= self.decay_factor  # Decay learning rate after each restart
-        
-        # Update learning rates
-        for param_group, lr in zip(self.optimizer.param_groups, self.get_lr()):
-            param_group['lr'] = lr
+    def get_lr (self ):
+        epoch_in_cycle =self .last_epoch %self .current_T_i 
+        if self .last_epoch <self .warmup_epochs :
+
+            lr =self .eta_min +(self .current_eta_max -self .eta_min )*(self .last_epoch /self .warmup_epochs )
+        else :
+
+            if epoch_in_cycle <self .warmup_epochs :
+                lr =self .eta_min +(self .current_eta_max -self .eta_min )*(epoch_in_cycle /self .warmup_epochs )
+            else :
+                lr =self .eta_min +0.5 *(self .current_eta_max -self .eta_min )*(1 +
+                torch .cos (torch .tensor (epoch_in_cycle -self .warmup_epochs )*torch .pi /
+                (self .current_T_i -self .warmup_epochs )))
+        return [lr for _ in self .optimizer .param_groups ]
+
+    def step (self ,epoch =None ):
+        if epoch is None :
+            epoch =self .last_epoch +1 
+        self .last_epoch =epoch 
+
+
+        if epoch %self .current_T_i ==0 and epoch !=0 :
+            self .restart_counter +=1 
+            self .current_T_i =self .T_0 *(self .T_mult **self .restart_counter )
+            self .current_eta_max *=self .decay_factor 
+
+
+        for param_group ,lr in zip (self .optimizer .param_groups ,self .get_lr ()):
+            param_group ['lr']=lr 

@@ -1,14 +1,7 @@
 # AMIFound: All-in-One Medical Image Restoration
 
-AMIFound is a multi-task medical image restoration project built with PyTorch and Lightning.  
-It supports a single model for multiple degradation types and reports **PSNR / SSIM / LPIPS** during evaluation.
+It supports a single model for multiple degradation types.
 
-## Features
-
-- One unified model for multiple restoration tasks
-- Multi-task training with mixed degradation types
-- Evaluation with optional image saving
-- Automatic tiled inference for large images in `test_all_patch.py`
 
 ## Supported Modalities
 
@@ -21,24 +14,6 @@ It supports a single model for multiple degradation types and reports **PSNR / S
 - `MR` (low-quality restoration)
 
 
-## Project Structure
-
-```text
-.
-├── checkpoints/
-├── results/
-├── src/
-│   ├── train_all_multiexpers2.py
-│   ├── test_all_patch.py
-│   ├── options2.py
-│   ├── data/
-│   ├── net/
-│   └── utils/
-├── run_AMIFound_all_multiexpers2.sh
-├── test_AMIFound_all.sh
-├── requirements.txt
-└── install.sh
-```
 
 ## Installation
 
@@ -63,7 +38,7 @@ Before training/testing, update paths to your local machine.
 
 Main default data root used in code:
 
-- `/data1/luyang/data/extracted_top50_samples/`
+- `/data1/yourname/data/`
 
 Expected paired folders:
 
@@ -118,12 +93,6 @@ python src/test_all_patch.py \
   --save_results
 ```
 
-The script prints:
-
-- `PSNR`
-- `SSIM`
-- `LPIPS`
-
 Saved outputs are written to:
 
 ```text
@@ -143,15 +112,3 @@ Use `--checkpoint_id AMIFound_large` for evaluation.
 - `test_all_patch.py` includes tile-based fallback for very large images.
 - Some helper comments/logs in source files are in Chinese; functionality is unchanged.
 
-## Citation
-
-If this code helps your research, please cite your AMIFound paper/repository entry here.
-
-```bibtex
-@misc{amifound,
-  title={AMIFound: All-in-One Medical Image Restoration},
-  author={Your Name et al.},
-  year={2026},
-  howpublished={GitHub repository}
-}
-```
