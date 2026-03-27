@@ -238,16 +238,16 @@ class AIOTrainDataset(Dataset):
     def _init_lr(self):
         """初始化所有数据集（CT/MRI保存完整训练对，其他数据集生成静态样本）"""
         # synthetic datasets
-        if 'synllie' in self.de_type:
-            self._init_synllie(id=self.de_dict['synllie'])
-        if 'deblur' in self.de_type:
-            self._init_deblur(id=self.de_dict['deblur'])
-        if 'derain' in self.de_type:
-            self._init_derain(id=self.de_dict['derain'])
-        if 'dehaze' in self.de_type:
-            self._init_dehaze(id=self.de_dict['dehaze'])
-        if 'denoise' in self.de_type:
-            self._init_denoise(id=self.de_dict['denoise'])
+        if 'Endoscopy' in self.de_type:
+            self._init_synllie(id=self.de_dict['Endoscopy'])
+        if 'Fundus' in self.de_type:
+            self._init_deblur(id=self.de_dict['Fundus'])
+        if 'PET' in self.de_type:
+            self._init_derain(id=self.de_dict['PET'])
+        if 'Ultrasound' in self.de_type:
+            self._init_dehaze(id=self.de_dict['Ultrasound'])
+        if 'X-ray' in self.de_type:
+            self._init_denoise(id=self.de_dict['X-ray'])
         if 'CT' in self.de_type:
             self._init_CT(id=self.de_dict['CT'])  # 关键：CT保存完整训练对
         if 'MR' in self.de_type:
@@ -563,7 +563,7 @@ class AIOTrainDataset(Dataset):
     #     self.dehaze_hr = self.dehaze_hr
     #     print("Repeated Dataset length : {}".format(len(self.dehaze_lr)))
     def _init_denoise(self, id):
-        if 'denoise' in self.de_type:
+        if 'X-ray' in self.de_type:
             random.seed(42)
 
             # 原始文件夹路径
@@ -738,16 +738,16 @@ class IRBenchmarks(Dataset):
         #     self._init_derain(id=self.de_dict['derain'])
         # if 'dehaze' in self.benchmarks:
         #     self._init_dehaze(id=self.de_dict['dehaze'])
-        if 'synllie' in self.de_type:
-            self._init_synllie(id=self.de_dict['synllie'])
-        if 'deblur' in self.de_type:
-            self._init_deblurring(id=self.de_dict['deblur'])
-        if 'derain' in self.de_type:
-            self._init_derain(id=self.de_dict['derain'])
-        if 'dehaze' in self.de_type:
-            self._init_dehaze(id=self.de_dict['dehaze'])
-        if 'denoise' in self.de_type:
-            self._init_denoise(id=self.de_dict['denoise'])
+        if 'Endoscopy' in self.de_type:
+            self._init_synllie(id=self.de_dict['Endoscopy'])
+        if 'Fundus' in self.de_type:
+            self._init_deblurring(id=self.de_dict['Fundus'])
+        if 'PET' in self.de_type:
+            self._init_derain(id=self.de_dict['PET'])
+        if 'Ultrasound' in self.de_type:
+            self._init_dehaze(id=self.de_dict['Ultrasound'])
+        if 'X-ray' in self.de_type:
+            self._init_denoise(id=self.de_dict['X-ray'])
         if 'CT' in self.de_type:
             self._init_CT(id=self.de_dict['CT'])  # 关键：CT保存完整训练对
         if 'MR' in self.de_type:

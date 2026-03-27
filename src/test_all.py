@@ -216,6 +216,37 @@ def run_deblur(opts, net, dataset, factor=8):
 def run_cdd11(opts, net, dataset, factor=8):
     run_test(opts, net, dataset, factor)
 
+def run_Endoscopy(opts, net, dataset, factor=8):
+    run_test(opts, net, dataset, factor)
+
+def run_Fundus(opts, net, dataset, factor=8):
+    run_test(opts, net, dataset, factor)
+
+def run_PET(opts, net, dataset, factor=8):
+    run_test(opts, net, dataset, factor)
+
+def run_Ultrasound(opts, net, dataset, factor=8):
+    run_test(opts, net, dataset, factor)
+
+def run_X_ray(opts, net, dataset, factor=8):
+    run_test(opts, net, dataset, factor)
+
+RUNNERS = {
+    "Endoscopy": run_Endoscopy,
+    "Fundus": run_Fundus,
+    "PET": run_PET,
+    "Ultrasound": run_Ultrasound,
+    "X-ray": run_X_ray,
+    "CT": run_CT,
+    "MR": run_MR,
+    # Backward compatibility
+    "synllie": run_Endoscopy,
+    "deblur": run_Fundus,
+    "derain": run_PET,
+    "dehaze": run_Ultrasound,
+    "denoise": run_X_ray,
+}
+
 
 ####################################################################################################
 ## main
@@ -240,7 +271,9 @@ def main(opt):
 
         print("--------> Testing on", de, "testset.")
         print("\n")
-        globals()[f"run_{de}"](opt, net, dataset, factor=8)
+        if de not in RUNNERS:
+            raise NotImplementedError(f"Unsupported benchmark/modality: {de}")
+        RUNNERS[de](opt, net, dataset, factor=8)
 
 
 def depth_type(value):

@@ -3,6 +3,23 @@ import os
 import pathlib
 from typing import Tuple
 
+TASK_NAME_ALIASES = {
+    "synllie": "Endoscopy",
+    "endoscopy": "Endoscopy",
+    "deblur": "Fundus",
+    "fundus": "Fundus",
+    "derain": "PET",
+    "pet": "PET",
+    "dehaze": "Ultrasound",
+    "ultrasound": "Ultrasound",
+    "denoise": "X-ray",
+    "xray": "X-ray",
+    "x_ray": "X-ray",
+    "x-ray": "X-ray",
+    "ct": "CT",
+    "mr": "MR",
+}
+
 
 # Helpers
 def depth_type(value):
@@ -23,6 +40,16 @@ def str2bool(v):
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
 
+def normalize_task_name(name: str) -> str:
+    if not isinstance(name, str):
+        return name
+    stripped = name.strip()
+    if stripped.startswith("denoise_"):
+        return stripped
+    normalized = stripped.lower().replace(" ", "_")
+    return TASK_NAME_ALIASES.get(normalized, stripped)
+
+
 def base_parser():
     parser = argparse.ArgumentParser()
 
@@ -31,7 +58,7 @@ def base_parser():
     parser.add_argument('--epochs', type=int, default=130, help='Number of training epochs.')
     parser.add_argument('--batch_size', type=int, default=4, help='Batch size per GPU.')
     parser.add_argument('--lr', type=float, default=1e-3, help='Learning rate.')
-    parser.add_argument('--de_type', nargs='+', help='Degradation types for training/testing.')
+    parser.add_argument('--de_type', nargs='+', help='Modalities for training/testing (e.g., Endoscopy Fundus PET Ultrasound X-ray CT MR).')
     parser.add_argument('--trainset', default="standard",
                         help=["standard", "CDD11_all", "CDD11_single", "CDD11_double", "CDD11_triple"])
     parser.add_argument('--loss_type', default="L1", help='Loss type.')
@@ -43,7 +70,7 @@ def base_parser():
     parser.add_argument('--resume_from', type=str, default=None, help='Resume from checkpoint.')
     parser.add_argument('--fine_tune_from', type=str, default=None, help='Fine-tune from checkpoint.')
     parser.add_argument('--checkpoint_id', type=str, help='checkpoint id')
-    parser.add_argument('--benchmarks', nargs='+', help='which benchmarks to test on.')
+    parser.add_argument('--benchmarks', nargs='+', help='Modalities/benchmarks to test on.')
     parser.add_argument('--save_results', action="store_true", help="Save restored outputs.")
 
     # Paths
@@ -103,6 +130,10 @@ def train_options():
         raise NotImplementedError(f"Model '{base_args.model}' not found.")
 
     options = parser.parse_args()
+    if options.de_type:
+        options.de_type = [normalize_task_name(task) for task in options.de_type]
+    if options.benchmarks:
+        options.benchmarks = [normalize_task_name(task) for task in options.benchmarks]
 
     # Adjust batch size if gradient accumulation is used
     if options.accum_grad > 1:

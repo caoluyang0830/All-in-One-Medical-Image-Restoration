@@ -9,15 +9,15 @@ conda activate AMIFound
 # 运行你的命令
 cd /caoluyang/code/AMIFound-main
 
-python src/test_all_patch.py --model AMIFound --benchmarks synllie --checkpoint_id AMIFound_large --de_type synllie --save_results
+python src/test_all_patch.py --model AMIFound --benchmarks Endoscopy --checkpoint_id AMIFound_large --de_type Endoscopy --save_results
 
-python src/test_all_patch.py --model AMIFound --benchmarks derain --checkpoint_id AMIFound_large --de_type derain --save_results
+python src/test_all_patch.py --model AMIFound --benchmarks PET --checkpoint_id AMIFound_large --de_type PET --save_results
 
-python src/test_all_patch.py --model AMIFound --benchmarks dehaze --checkpoint_id AMIFound_large --de_type dehaze --save_results
+python src/test_all_patch.py --model AMIFound --benchmarks Ultrasound --checkpoint_id AMIFound_large --de_type Ultrasound --save_results
 
-python src/test_all_patch.py --model AMIFound --benchmarks denoise --checkpoint_id AMIFound_large --de_type denoise --save_results
+python src/test_all_patch.py --model AMIFound --benchmarks X-ray --checkpoint_id AMIFound_large --de_type X-ray --save_results
 
-python src/test_all_patch.py --model AMIFound --benchmarks deblur --checkpoint_id AMIFound_large --de_type deblur --save_results
+python src/test_all_patch.py --model AMIFound --benchmarks Fundus --checkpoint_id AMIFound_large --de_type Fundus --save_results
 
 #python src/test_all.py --model AMIFound --benchmarks MR --checkpoint_id dual_moe --de_type MR --save_results
 #
