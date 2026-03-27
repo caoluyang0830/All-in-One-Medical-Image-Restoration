@@ -99,6 +99,15 @@ Saved outputs are written to:
 results/<checkpoint_id>/<benchmark>/
 ```
 
+
+### Pretrained Models
+The pretrained models are available at [this link](https://drive.google.com/drive/folders/11DfmFFPeKrW1KHtx_MAW3NtyhZOjI262).
+
+
+### Data Samples
+Sample data can be accessed at [this link](https://drive.google.com/drive/folders/1f1IPbx_4sMiT2JzZKWsce0UIVt8a7KQa).
+
+
 ## Pretrained Checkpoint
 
 This repo includes:
@@ -106,6 +115,3 @@ This repo includes:
 - `checkpoints/AMIFound_large/last.ckpt`
 
 Use `--checkpoint_id AMIFound_large` for evaluation.
-
-
-
