@@ -1,66 +1,118 @@
-# AMIFound: All-in-One Medical Image Restoration
+# AMIFound: An All-in-One Foundation Model for Multimodal Medical Image Restoration and Enhancement
 
-It supports a single model for multiple degradation types.
+Official PyTorch implementation accompanying the paper **“An All in One Foundation Model for Multimodal Medical Image Restoration and Enhancement.”**
 
+**Repository:** <https://github.com/caoluyang0830/All-in-One-Medical-Image-Restoration>
 
-## Supported Modalities
+AMIFound is a unified medical image restoration model that uses one set of model weights for seven restoration and enhancement tasks across seven imaging modalities. The repository contains the model implementation, training and paired-evaluation code, degradation-generation utilities, pretrained weights hosted externally, and sample paired data.
 
-- `Endoscopy` (low-light enhancement)
-- `Fundus` (spot-light artifact removal)
-- `PET` (noised-to-clean)
-- `Ultrasound` (sound artifact removal)
-- `X-ray` (blur removal)
-- `CT` (metal artifact restoration)
-- `MR` (low-quality restoration)
+## Quick Start
 
+Follow [Installation](#installation), download the [pretrained model and sample data](#pretrained-model-and-sample-data), and complete [Data preparation](#data-preparation). You can then run the example in [Paired evaluation](#paired-evaluation), or follow [Training](#training) to train AMIFound.
 
+## Supported tasks
+
+| Modality | Restoration or enhancement task | Low-quality folder | Reference folder |
+| --- | --- | --- | --- |
+| Endoscopy | Low-light enhancement | `Endoscopy_dark` | `Endoscopy` |
+| Fundus photography | Spot-light artifact removal | `Fundus_spot_light` | `Fundus` |
+| PET | Noise reduction | `PET_denoised` | `PET` |
+| Ultrasound | Acoustic artifact removal | `Ultrasound_sound_artifacts` | `Ultrasound` |
+| X-ray | Deblurring | `X_ray_blur` | `X_ray` |
+| CT | Metal artifact reduction | `CT_metal_artifacts` | `CT` |
+| MR | Restoration of low-quality MR images | `MR_LQ` | `MR` |
+
+## What is included
+
+```text
+.
+├── src/
+│   ├── data/                         # Paired training and evaluation datasets
+│   ├── net/                          # AMIFound network implementations
+│   ├── utils/                        # Losses, metrics, image I/O, and schedulers
+│   ├── train_all_multiexpers2.py     # Multi-task training entry point
+│   ├── test_all_patch.py             # Paired evaluation entry point
+│   └── options2.py                   # Command-line options
+├── modiality/                        # Scripts for generating task-specific degradations
+├── run_AMIFound_all_multiexpers2.sh  # Example training command
+├── test_AMIFound_all.sh              # Example evaluation commands
+├── MODEL_CARD.md                     # Model information and usage summary
+├── requirements.txt                  # Python dependencies
+└── video/AMIFound.mp4                # Demonstration video
+```
 
 ## Installation
 
-1. Create and activate a conda environment.
-2. Install PyTorch (CUDA 11.8 example) and dependencies:
+Clone the repository and create an isolated environment:
 
 ```bash
+git clone https://github.com/caoluyang0830/All-in-One-Medical-Image-Restoration.git
+cd All-in-One-Medical-Image-Restoration
+
+conda create -n AMIFound python=3.10 -y
+conda activate AMIFound
 conda install pytorch torchvision pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install -r requirements.txt
 ```
 
-Or run:
+Training and evaluation are designed for an NVIDIA GPU with CUDA. The commands above use CUDA 11.8 as an example.
+
+Alternatively, after creating and activating the Conda environment, install the dependencies with:
 
 ```bash
 bash install.sh
 ```
 
-## Data Preparation
+## Pretrained model and sample data
 
-Important: this repository currently contains **hard-coded absolute paths** in `src/data/dataset_utils_all.py` and `src/options2.py`.  
-Before training/testing, update paths to your local machine.
+- [Pretrained model](https://drive.google.com/drive/folders/11DfmFFPeKrW1KHtx_MAW3NtyhZOjI262)
+- [Sample paired data](https://drive.google.com/drive/folders/1f1IPbx_4sMiT2JzZKWsce0UIVt8a7KQa)
 
-Main default data root used in code:
+Download the pretrained `last.ckpt` checkpoint and place it as follows:
 
-- `/data1/yourname/data/`
+```text
+checkpoints/AMIFound_large/last.ckpt
+```
 
-Expected paired folders:
+The value passed to `--checkpoint_id` is the directory name under `checkpoints/`.
 
-- `Endoscopy_dark` and `Endoscopy`
-- `Fundus_spot_light` and `Fundus`
-- `PET_denoised` and `PET`
-- `Ultrasound_sound_artifacts` and `Ultrasound`
-- `X_ray_blur` and `X_ray`
-- `CT_metal_artifacts` and `CT`
-- `MR_LQ` and `MR`
+## Data preparation
 
-The current split strategy in code is a fixed random **70% train / 30% test** split (`seed=42`).
+The standard AMIFound loaders expect paired low-quality and reference PNG images. Within each folder pair, use identical filenames and image dimensions so that sorting produces the correct pairs.
+
+An example layout is:
+
+```text
+DATA_ROOT/
+├── Endoscopy_dark/
+├── Endoscopy/
+├── Fundus_spot_light/
+├── Fundus/
+├── PET_denoised/
+├── PET/
+├── Ultrasound_sound_artifacts/
+├── Ultrasound/
+├── X_ray_blur/
+├── X_ray/
+├── CT_metal_artifacts/
+├── CT/
+├── MR_LQ/
+└── MR/
+```
+
+### Path configuration
+
+Before training or evaluation, configure the modality-specific input and reference folder locations in `src/data/dataset_utils_all.py` for your local `DATA_ROOT`.
+
+The repository uses a fixed random split for each paired modality:
+
+- 70% for training
+- 30% for evaluation
+- random seed 42
 
 ## Training
 
-Run the provided training script:
-
-```bash
-bash run_AMIFound_all_multiexpers2.sh
-```
-
-Equivalent command:
+Run the training entry point from the repository root. The following is the configuration represented by the provided example script:
 
 ```bash
 python src/train_all_multiexpers2.py \
@@ -69,20 +121,22 @@ python src/train_all_multiexpers2.py \
   --de_type MR CT X-ray Ultrasound PET Fundus Endoscopy \
   --trainset standard \
   --num_gpus 4 \
-  --loss_type FFT \
+  --loss_type fft \
   --fft_loss_weight 0.1 \
   --balance_loss_weight 0.01
 ```
 
-## Testing
+Checkpoints are written to:
 
-Run all task evaluations:
-
-```bash
-bash test_AMIFound_all.sh
+```text
+checkpoints/<training_timestamp>/
 ```
 
-Example single-task test:
+The direct Python command above is recommended. The supplied `run_AMIFound_all_multiexpers2.sh` can also be adapted to the local Conda environment and repository location.
+
+## Paired evaluation
+
+The released evaluation entry point computes PSNR, SSIM, and LPIPS against paired reference images. Run one modality per invocation so that the benchmark and data-loader task are aligned:
 
 ```bash
 python src/test_all_patch.py \
@@ -93,25 +147,43 @@ python src/test_all_patch.py \
   --save_results
 ```
 
-Saved outputs are written to:
+To evaluate all seven tasks sequentially:
+
+```bash
+for task in Endoscopy Fundus PET Ultrasound X-ray CT MR; do
+  python src/test_all_patch.py \
+    --model AMIFound \
+    --benchmarks "$task" \
+    --checkpoint_id AMIFound_large \
+    --de_type "$task" \
+    --save_results
+done
+```
+
+Metrics are printed to the terminal. Restored images are saved to:
 
 ```text
 results/<checkpoint_id>/<benchmark>/
 ```
 
+## Usage
 
-### Pretrained Models
-The pretrained models are available at [this link](https://drive.google.com/drive/folders/11DfmFFPeKrW1KHtx_MAW3NtyhZOjI262).
+This release supports:
 
+- reproduction of the paired-data training protocol;
+- quantitative paired evaluation using PSNR, SSIM, and LPIPS;
+- saving restored outputs during paired evaluation;
+- generation of task-specific degraded images using the scripts in `modiality/`; and
+- research on unified restoration across medical imaging modalities.
 
-### Data Samples
-Sample data can be accessed at [this link](https://drive.google.com/drive/folders/1f1IPbx_4sMiT2JzZKWsce0UIVt8a7KQa).
+## Citation
 
+If you use this repository, please cite the accompanying paper **“An All in One Foundation Model for Multimodal Medical Image Restoration and Enhancement.”**
 
-## Pretrained Checkpoint
+## License
 
-This repo includes:
+Please see [LICENSE](LICENSE) for the terms governing use of this repository.
 
-- `checkpoints/AMIFound_large/last.ckpt`
+## Contact
 
-Use `--checkpoint_id AMIFound_large` for evaluation.
+For questions about the code or pretrained model, please open an issue in this repository.
