@@ -81,4 +81,4 @@ python download_amifound.py list --scope diagnosis
 
 所有原始数据归其对应来源许可及数据使用协议管理。请认真阅读 [DISCLAIMER_CN.md](DISCLAIMER_CN.md)，不可因为来源被列入论文就认为其已获可转授权或可任意商业化使用。相关医学影像不得用于未经验证的临床诊断。
   
-For English documentation, please refer to [README_EN.md](README_EN.md), and for the English disclaimer, please refer to [DISCLAIMER_EN.md](DISCLAIMER_EN.md).
+For English documentation, please refer to [README.md](README.md), and for the English disclaimer, please refer to [DISCLAIMER_EN.md](DISCLAIMER_EN.md).
