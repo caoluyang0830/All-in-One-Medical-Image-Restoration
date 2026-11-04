@@ -1,0 +1,82 @@
+id,scope,modality,dataset,source_page,source_table,access_url,download_mode,notes
+B001,benchmark,MRI,ACDC,76,E35,https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B002,benchmark,MRI,AMOS2022,76,E35,https://amos22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B003,benchmark,MRI,ASC18,76,E35,https://www.cardiacatlas.org/atriaseg2018-challenge/atria-seg-data/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B004,benchmark,MRI,"BraTS (2013, 2015, 2018-2021)",76,E35,https://www.med.upenn.edu/cbica/brats/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B005,benchmark,MRI,MSD Brain Tumour,76,E35,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B006,benchmark,MRI,Brain_PTM,76,E35,https://brainptm-2021.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B007,benchmark,MRI,CHAOS_Task_4,76,E35,https://chaos.grand-challenge.org/Data/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B008,benchmark,MRI,CMRxMotion,76,E35,https://cmr.miccai.cloud/datasets/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B009,benchmark,MRI,COSMOS2022,76,E35,https://vessel-wall-segmentation-2022.grand-challenge.org/data/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B010,benchmark,MRI,CrossMoDA 2021/2022,76,E35,https://crossmoda.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B011,benchmark,MRI,EMIDEC,77,E35,https://emidec.com/dataset,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B012,benchmark,MRI,ISLES 2016/2017/2022,77,E35,https://www.isles-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B013,benchmark,MRI,ISLES_SISS / ISLES_SPES,77,E35,https://www.isles-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B014,benchmark,MRI,Longitudinal MS Lesion Segmentation,77,E35,https://iacl.ece.jhu.edu/index.php/MSChallenge/data,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B015,benchmark,MRI,MSD Heart,77,E35,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B016,benchmark,MRI,MSD Prostate,77,E35,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B017,benchmark,MRI,PROMISE12,77,E35,https://promise12.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B018,benchmark,MRI,PROMISE09,77,E35,https://promise12.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B019,benchmark,MRI,Prostate MRI Segmentation Benchmark,77,E35,https://www.kaggle.com/datasets/andrewmvd/prostate-mri-segmentation,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B020,benchmark,MRI,BrainMRI,77,E35,https://zenodo.org/records/5528029,zenodo_record,Original data source; not pre-generated HQ-LQ pairs
+B021,benchmark,MRI,HVSMR 2016,77,E35,https://segchd.csail.mit.edu/data.html,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B022,benchmark,MRI,M&Ms-2,77,E35,https://mnms.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B023,benchmark,MRI,PI-CAI,78,E35,https://pi-cai.grand-challenge.org/DATA/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B024,benchmark,CT,AMOS2022,79,E36,https://amos22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B025,benchmark,CT,ATM2022,79,E36,https://atm22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B026,benchmark,CT,AbdomenCT1K,79,E36,https://github.com/JunMa11/AbdomenCT-1K,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B027,benchmark,CT,BTCV,79,E36,https://www.synapse.org/Synapse:syn3193805,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B028,benchmark,CT,BTCV_Cervix,79,E36,https://www.synapse.org/Synapse:syn3378972,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B029,benchmark,CT,CAD_PE,79,E36,https://www.kaggle.com/datasets/maedemaftouni/pulmonary-embolism-ct-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B030,benchmark,CT,COVID-19-20,79,E36,https://www.kaggle.com/datasets/plameneduardo/sarscov2-ctscan-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B031,benchmark,CT,COVID19CTscans,79,E36,https://github.com/ieee8023/covid-chestxray-dataset,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B032,benchmark,CT,CTPelvic1K,79,E36,https://ctpelvic1k.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B033,benchmark,CT,CTSpine1K_Full,79,E36,https://ctspine1k.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B034,benchmark,CT,CT_ORG,79,E36,https://ctorg.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B035,benchmark,CT,FLARE21/22,80,E36,https://flare22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B036,benchmark,CT,ISLES2018,80,E36,https://www.isles-challenge.org/ISLES2018/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B037,benchmark,CT,Instance22,80,E36,https://instance22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B038,benchmark,CT,KiTS / KiTS2021,80,E36,https://kits21.kits-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B039,benchmark,CT,LNDb,80,E36,https://lndb.grand-challenge.org/Data/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B040,benchmark,CT,LUNA16,80,E36,https://luna16.grand-challenge.org/Procedure/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B041,benchmark,CT,MMWHS,80,E36,https://zmiclab.github.io/zxh/0/mmwhs/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B042,benchmark,CT,MSD Colon,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B043,benchmark,CT,MSD Hepatic Vessel,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B044,benchmark,CT,MSD Liver,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B045,benchmark,CT,MSD Lung,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B046,benchmark,CT,MSD Pancreas,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B047,benchmark,CT,MSD Spleen,80,E36,https://medicaldecathlon.com/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B048,benchmark,CT,Parse22,81,E36,https://parse22.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B049,benchmark,CT,QUBIQ2020,81,E36,https://qubiq2020.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B050,benchmark,CT,StructSeg2019_subtask1/2,81,E36,https://structseg2019.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B051,benchmark,CT,TotalSegmentator,81,E36,https://github.com/wasserth/TotalSegmentator,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B052,benchmark,CT,VESSEL2012,81,E36,https://vessel12.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B053,benchmark,CT,VerSe19/20,81,E36,https://verse20.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B054,benchmark,CT,WORD,81,E36,https://word.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B055,benchmark,CT,autoPET (CT component),81,E36,https://autopet.grand-challenge.org/Dataset/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B056,benchmark,CT,Cranium,81,E36,https://zenodo.org/records/6565694,zenodo_record,Original data source; not pre-generated HQ-LQ pairs
+B057,benchmark,X-ray,Chest_Image_Pneum,82,E37,https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B058,benchmark,X-ray,Pulmonary_Chest_X-Ray_Abnormalities_seg,82,E37,https://www.kaggle.com/datasets/kmader/pulmonary-chest-xray-abnormalities,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B059,benchmark,X-ray,Chest X-ray with Pneumothorax Masks,82,E37,https://www.kaggle.com/c/siim-acr-pneumothorax-segmentation/data,kaggle_competition,Original data source; not pre-generated HQ-LQ pairs
+B060,benchmark,X-ray,COVID-19 CT/CXR,82,E37,https://www.kaggle.com/datasets/plameneduardo/sarscov2-ctscan-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B061,benchmark,X-ray,CRASS,82,E37,https://crass.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B062,benchmark,X-ray,Shenzhen CXR,82,E37,https://www.kaggle.com/nih-chest-xrays/shenzhen-chest-xray-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B063,benchmark,Endoscopy,EndoVis 2017 robotic instrument segmentation,82,E37,https://endovissub2017-roboticinstrumentsegmentation.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B064,benchmark,Endoscopy,CVC-ClinicDB,82,E37,https://www.cvc.uab.es/CVC-ClinicDB/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B065,benchmark,Endoscopy,EndoVis 2015,82,E37,https://endovis.grand-challenge.org/2015/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B066,benchmark,Endoscopy,Kvasir-SEG,82,E37,https://github.com/simula/kvasir-seg,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B067,benchmark,Endoscopy,Kvasir-Capsule,82,E37,https://github.com/simula/kvasir-capsule,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B068,benchmark,Fundus,PALM,82,E37,https://palm.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B069,benchmark,Fundus,GAMMA,83,E37,https://gamma.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B070,benchmark,Fundus,GAMMA3,83,E37,https://gamma3.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B071,benchmark,Fundus,iChallenge-ADAM Task 2,83,E37,https://ichallenge-adam.grand-challenge.org/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+B072,benchmark,Ultrasound,BUSI,83,E37,https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+B073,benchmark,Ultrasound,Ultrasound Nerve Segmentation,83,E37,https://www.kaggle.com/c/ultrasound-nerve-segmentation/data,kaggle_competition,Original data source; not pre-generated HQ-LQ pairs
+B074,benchmark,PET,autoPET,83,E37,https://autopet.grand-challenge.org/Dataset/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+D001,diagnosis,CT,COVID-19 CT-scans,25,A2,https://github.com/UCSD-AI4H/COVID-CT,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+D002,diagnosis,MRI,ACDC,25,A2,https://www.creatis.insa-lyon.fr/Challenge/acdc/databases.html,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+D003,diagnosis,PET,Lung-PET-CT-Dx,25,A2,https://doi.org/10.7937/TCIA.2020.NNC2-0461,tcia_portal,Original data source; not pre-generated HQ-LQ pairs
+D004,diagnosis,X-ray,CheXpert,25,A2,https://stanfordmlgroup.github.io/competitions/chexpert/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+D005,diagnosis,Ultrasound,BUSI,25,A2,https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset,kaggle_dataset,Original data source; not pre-generated HQ-LQ pairs
+D006,diagnosis,Endoscopy,Kvasir,25,A2,https://datasets.simula.no/kvasir/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
+D007,diagnosis,Fundus,ODIR-2019,25,A2,https://odir2019.grand-challenge.org/dataset/,manual_portal,Original data source; not pre-generated HQ-LQ pairs
