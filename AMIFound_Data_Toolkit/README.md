@@ -80,4 +80,4 @@ Appendix A.1.2 of the paper describes modality-specific degradation models for a
 
 All original data remain subject to the licenses and data use agreements of their respective providers. Please read [DISCLAIMER_EN.md](DISCLAIMER_EN.md) carefully. Inclusion of a source in the paper does not imply permission to sublicense or freely commercialize its data. The medical images must not be used for clinical diagnosis without appropriate validation.
 
-*中文说明请参阅 [README.md](README.md)；中文免责声明请参阅 [DISCLAIMER_CN.md](DISCLAIMER_CN.md)。*
+*中文说明请参阅 [README_CN.md](README_CN.md)；中文免责声明请参阅 [DISCLAIMER_CN.md](DISCLAIMER_CN.md)。*
